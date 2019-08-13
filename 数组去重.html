@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组去重</title>
+</head>
+
+<body>
+    <script>
+        let arr = [0, 1, 1, 2, 3, 3, 4, 5, 4, 1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 8, 0, 9, 10];
+
+        // es6方法 利用新的数据结构 Set ，类似于数组。但是成员都是唯一的，Set 接受一个数组作为参数
+        // new Set() 返回的是个类数组 可以用 Array.from() 来转换成真正的数组
+        // let newArr = new Set(arr);
+        // console.log(arr);
+        // console.log(newArr);
+        // console.log(Array.from(newArr));
+
+        // 利用indexOf 进行遍历数组
+        let unique = (arr) => {
+            let newArr = [];
+            arr.forEach(el => {
+                if (newArr.indexOf(el) === -1) { // indexOf 如果找到元素是返回元素的下标， 否则返回 -1
+                    newArr.push(el);
+                }
+            });
+            return newArr;
+        }
+        // console.log(unique(arr));
+
+
+        // 排序后相邻数组进行比较   
+        // 排序后相同的值会相邻  进行比较新加入的值
+        let unique2 = (arr) => {
+
+            let newArr = [];
+
+            arr.sort((a, b) => a - b)
+
+            newArr = [arr[0]];
+
+            arr.forEach(el => {
+                if (el !== newArr[newArr.length - 1]) {
+                    newArr.push(el);
+                }
+            })
+            return newArr;
+        }
+        // console.log(unique2(arr))
+
+        //利用对象属性存在的特性，如果没有该属性存入新数组
+        let unique3 = (arr) => {
+            let obj = {},
+                newArr = [];
+            arr.forEach(el => {
+                if (!obj[el]) { //如果对象里面不存在这个属性就返回undefined
+                    obj[el] = 1;
+                    newArr.push(el);
+                }
+            })
+            return newArr;
+        }
+        // console.log(unique3(arr))
+    </script>
+</body>
+
+</html>
